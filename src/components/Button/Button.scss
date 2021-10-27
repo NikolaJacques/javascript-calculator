@@ -1,0 +1,43 @@
+@use 'src/css/_colors' as *;
+
+$buttons: (
+    'zero':$number-clr, 
+    'one':$number-clr, 
+    'two':$number-clr, 
+    'three':$number-clr, 
+    'four':$number-clr, 
+    'five':$number-clr, 
+    'six':$number-clr, 
+    'seven':$number-clr, 
+    'eight':$number-clr, 
+    'nine':$number-clr, 
+    'dot':$number-clr,
+    'ac':$ac-clr,  
+    'equals':$equals-clr, 
+    'add':$operand-clr, 
+    'subtract':$operand-clr, 
+    'divide':$operand-clr, 
+    'multiply':$operand-clr
+);
+
+@each $button, $color in $buttons {
+    .#{$button} {
+        grid-area: #{$button};
+        background-color: #{$color};
+    }
+}
+
+button {
+    text-align: center;
+    padding: 1em 0;
+    color: white;
+    border: 1px solid black;
+
+    &:hover {
+        color: black;
+        border: 1px solid grey;
+        cursor: pointer;
+    }
+}
+
+

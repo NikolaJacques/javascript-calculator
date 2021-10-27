@@ -1,0 +1,37 @@
+@use 'src/css/_fonts.scss' as fonts;
+$display-small: fonts.$font-size-display-small;
+$display-medium: fonts.$font-size-display-medium;
+$display-large: fonts.$font-size-display-large;
+
+.display {
+    font-family: 'Digital-7';
+    text-align: right;
+    background: black;
+    > .current {
+        color: white;
+        font-size: $display-medium;
+        min-height: $display-medium;
+    }
+    > .expression {
+        color: orange;
+        font-size: $display-small;
+        min-height: $display-small;
+    }
+    > * {
+        padding: 0.5rem;
+    }
+}
+
+@media screen and (min-width: 480px){
+    .display{
+        > .current {
+            font-size: $display-large;
+            min-height: $display-large;
+        }
+        > .expression {
+            font-size: $display-medium;
+            min-height: $display-medium;
+        }
+    }
+}
+

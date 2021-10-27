@@ -1,8 +1,14 @@
+import Container from "./components/Container/Container.js";
+import Context from "./components/Context.js";
+
 function App() {
-  return (
-    <div className="App">
-      
-    </div>
+  return (  
+    <Context>  
+      <div className="App">
+          <Container />
+      </div>
+    </Context>
+
   );
 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Container() {
+export default function CurrentDisplay() {
     return (
         <div>
             

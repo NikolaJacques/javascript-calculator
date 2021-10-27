@@ -1,0 +1,45 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin:0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight:var(--fw-200);
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+}
+
+input, label {
+    display: block;
+    border: none;
+  }
+
+a {
+  text-decoration: none;
+  color:inherit;
+  display:block;
+}
+
+ul[class],
+ol[class] {
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display:block;
+}

@@ -1,0 +1,15 @@
+$font-size-medium: 1rem;
+$font-size-large: 2rem;
+$font-size-display-small: 1rem;
+$font-size-display-medium: 2rem;
+$font-size-display-large: 3rem;
+
+@font-face {
+    font-family: 'Digital-7';
+    src: url('./fonts/digital-7.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('./fonts/Roboto-Medium.ttf') format('truetype');
+}

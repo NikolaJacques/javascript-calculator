@@ -1,0 +1,7 @@
+.container {
+    width: 250px;
+}
+
+@media screen and (min-width: 480px) {
+    .container {width: 400px};
+}

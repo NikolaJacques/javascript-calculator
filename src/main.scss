@@ -1,0 +1,18 @@
+@use 'css' as *;
+
+body {
+    font-size: $font-size-medium;
+    min-height: 100vh;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto';
+    background-color: $background-clr;
+}
+
+@media screen and (min-width: 480px) {
+    body{
+        font-size: $font-size-large;
+    }
+}
+
