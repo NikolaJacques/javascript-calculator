@@ -82,7 +82,6 @@ export default function Context(props) {
                     .then(text => JSON.parse(text));
             })
             .then((data) => {
-                console.log(data)
                 const { result } = data
                 setExpression(prevValue => prevValue + '=' + result)
                 setCurrent(result)
