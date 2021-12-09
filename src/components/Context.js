@@ -1,4 +1,5 @@
 import { createContext, useState } from 'react'
+// eslint-disable-next-line no-unused-vars
 import { API } from './API'
 
 export const GeneralContext = createContext()
@@ -86,6 +87,7 @@ export default function Context(props) {
     }
 
     const evaluate = (expression) => {
+        // eslint-disable-next-line no-eval
         const result = eval(filterExpression(expression))
         setExpression(prevValue => prevValue + '=' + result)
         setCurrent(result)
