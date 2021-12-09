@@ -9,11 +9,11 @@ export const ButtonObject = [
     { label:'8', className:'eight'},
     { label:'9', className:'nine'},
     { label:'0', className:'zero'},
-    { label:'.', className:'dot'},
+    { label:'.', className:'decimal'},
     { label:'=', className:'equals'},
     { label:'/', className:'divide'},
     { label:'*', className:'multiply'},
     { label:'-', className:'subtract'},
     { label:'+', className:'add'},
-    { label:'AC', className:'ac' }
+    { label:'AC', className:'clear'}
 ]

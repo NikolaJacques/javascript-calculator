@@ -9,7 +9,7 @@ export default function Display() {
     return (
         <div className="display">
             <div className="expression">{expression}</div>
-            <div className="current">{current}</div>
+            <div className="current" id="display">{current}</div>
         </div>
     )
 }

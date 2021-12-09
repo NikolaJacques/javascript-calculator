@@ -6,7 +6,7 @@ import { ButtonObject } from '../ButtonObject'
 export default function ButtonGrid() {
     return (
         <div className="button-grid">
-            {ButtonObject.map(({label, className}) => <Button label={label} className={className} key={className}/>)}
+            {ButtonObject.map(({label, className}) => <Button label={label} className={className} key={className} id={className}/>)}
         </div>
     )
 }

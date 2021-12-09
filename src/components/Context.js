@@ -6,18 +6,18 @@ export const GeneralContext = createContext()
 export default function Context(props) {
 
     const [expression, setExpression] = useState('')
-    const [current, setCurrent] = useState('')
+    const [current, setCurrent] = useState('0')
+    const [startCondition, setStartCondition] = useState(true)
     const [endCondition, setEndCondition] = useState(false)
 
     const handleChange = (e) => {
-        if(endCondition){ 
-            setExpression(() => {return current})
-        }
         const input = e.target.innerText
         const lastCharacter = current[current.length-1]===undefined?'':current[current.length-1]
         switch(input) {
             case '.':
-                endConditionDecorator(dotHandler(lastCharacter, input))
+                if(!endCondition){
+                    decimalHandler(lastCharacter, input)
+                }
                 return
             case '0':
             case '1':
@@ -29,22 +29,25 @@ export default function Context(props) {
             case '7':
             case '8':
             case '9':
-                endConditionDecorator(valueHandler(lastCharacter, input))
+                if(!endCondition){valueHandler(lastCharacter, input)}
                 return
             case '-':
-                endConditionDecorator(subtractHandler(lastCharacter, input))
+                if(!endCondition){subtractHandler(lastCharacter, input)}
                 return
             case'/':
             case '*':
             case '+':
+                if(endCondition){
+                    setExpression(current)
+                    setEndCondition(false)
+                }
                 operandHandler(lastCharacter, input)
-                if(endCondition){setEndCondition(() => {return false})}
                 return
             case 'AC':
                 resetValues()
                 return
             case '=':
-                endConditionDecorator(equalsHandler())
+                if(!endCondition){equalsHandler()}
                 return
             default:
                 return
@@ -69,14 +72,26 @@ export default function Context(props) {
         setExpression(prevValue => prevValue + input)
     }
 
-    const replaceValues = (input) => {
-        setExpression(prevValue => prevValue.slice(0,prevValue.length-1) + input)
-        setCurrent(input)
+
+    const filterExpression = (expression) => {
+        const regexOperands = /[/*\-+]{2,}/g
+        const result = expression.split('')
+        const inverted = Array.from(expression.matchAll(regexOperands))
+        let matches = []
+        for (let i=inverted.length-1;i>-1;i--){matches.push(inverted.pop())}
+        for(const match of matches){
+            result.splice(match.index,match[0].length,match[0][match[0].length-1]==='-'?match[0][match[0].length-2]+'-':match[0][match[0].length-1])
+        }
+        return result.join('')
     }
 
     const evaluate = (expression) => {
-        // alternative to eval()
-        API.request(expression)
+        const result = eval(filterExpression(expression))
+        setExpression(prevValue => prevValue + '=' + result)
+        setCurrent(result)
+
+        // alternative to eval() that doesn't pass FCC tests
+        /* API.request(expression)
             .then((response) => {
                 return response.text()
                     .then(text => JSON.parse(text));
@@ -85,32 +100,29 @@ export default function Context(props) {
                 const { result } = data
                 setExpression(prevValue => prevValue + '=' + result)
                 setCurrent(result)
-                setEndCondition(true)
             })
             .catch((error) => {
                 console.log(error)
             })
-        return
-    }
-
-    const endConditionDecorator = (wrappedFunc) => {
-        return () => {
-            if(!endCondition){
-                return wrappedFunc.apply(this,arguments)
-            }
-        }
+        return */
     }
 
     // handlers 
 
-    const dotHandler = (lastCharacter, input) => {
+    const decimalHandler = (lastCharacter, input) => {
         if(isOperand(lastCharacter)){return}
         if(current.search(/\./g)!==-1 || !current){return}
         appendValues(input)
     }
 
     const valueHandler = (lastCharacter, input) => {
-        if(current===0){return}
+        if(startCondition){
+            setCurrent(input)
+            setExpression(input)
+            setStartCondition(false)
+            return
+        }
+        if(current==='0'){return}
         if(current.search(/\./g)!==-1 || isValue(lastCharacter) || lastCharacter==='-'){
             appendValues(input)
         } else {
@@ -124,9 +136,9 @@ export default function Context(props) {
     }
 
     const operandHandler = (lastCharacter, input) => {
-        if(lastCharacter==='.' || lastCharacter==='-' || !current){return}
+        if(lastCharacter==='.' || (lastCharacter==='-'&& input==='-') || !current){return}
         if(isOperand(lastCharacter)){
-            replaceValues(input)
+            appendValues(input)
         } else {
             chaseValues(input)
         }
@@ -134,11 +146,14 @@ export default function Context(props) {
 
     const resetValues = () => {
         setExpression('')
-        setCurrent('')
+        setCurrent('0')
+        setEndCondition(false)
+        setStartCondition(true)
     }
 
     const equalsHandler = () => {
         evaluate(expression)
+        setEndCondition(true)
     }
 
     return (

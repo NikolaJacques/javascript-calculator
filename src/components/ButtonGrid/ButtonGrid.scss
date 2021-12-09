@@ -1,10 +1,10 @@
 .button-grid {
     display:grid;
     grid-template-areas: 
-        "ac ac divide multiply"
+        "clear clear divide multiply"
         "seven eight nine subtract"
         "four five six add"
         "one two three equals"
-        "zero zero dot equals";
+        "zero zero decimal equals";
     grid-gap: 0em;
 }
